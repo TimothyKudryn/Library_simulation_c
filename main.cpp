@@ -111,7 +111,7 @@ ostream& Author::printAuthor(ostream& out) const {
 
 ostream& Book::printBook(ostream& out) const {
     out << "    * " << title;
-    out << "  copies owned: " << numCopies << "  copies lent out: " << numCheckout << endl;// overloaded <<
+    out << "  copies owned: " << numCopies << "  copies lent out: " << numCheckout;// overloaded <<
 
     out << endl;
     return out;
@@ -265,7 +265,7 @@ void checkOutBook() {
             else {
                 if (bookRef->patron == &*patronRef) {
                     cout << "Patron may no check out multiple copies of the same book at the same time" << endl;
-                    break; // can't checkout multiplt copies at the same time.
+                    break; // can't checkout multiple copies at the same time.
                 }
                 else {
                     if (bookRef->numCopies >= bookRef->numCheckout) {
@@ -337,10 +337,12 @@ void returnBook() {
 
 int menu() {
     int option;
-    cout << "\nEnter one of the following options:\n"
+    cout << "\n\nEnter one of the following options: "
+         << "\n***************************\n"
          << "1. Include a book in the catalog\n2. Check out a book\n"
          << "3. Return a book\n4. Status\n5. Exit\n"
-         << "Your option? ";
+         << "Your option? "
+         << "\n***************************\n";
     cin >> option;
     cin.get();         // discard '\n';
     return option;
@@ -348,6 +350,9 @@ int menu() {
     // of the switch case in main to use
 }
 
+
+// all functions are called in the following method.
+// the 5 possible actions are all spilt into functions. This design pattern make debugging quite easy.
 int main() {
     while (true)
         switch (menu()) {
